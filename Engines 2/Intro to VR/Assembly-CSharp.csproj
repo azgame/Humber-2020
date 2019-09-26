@@ -60,11 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\AIController.cs" />
-    <Compile Include="Assets\CameraControl.cs" />
-    <Compile Include="Assets\KillScript.cs" />
-    <Compile Include="Assets\LookMoveTo.cs" />
-    <Compile Include="Assets\RandomPosition.cs" />
+    <Compile Include="Assets\Sctips\AIController.cs" />
+    <Compile Include="Assets\Sctips\CameraControl.cs" />
+    <Compile Include="Assets\Sctips\InputController.cs" />
+    <Compile Include="Assets\Sctips\KillScript.cs" />
+    <Compile Include="Assets\Sctips\LookMoveTo.cs" />
+    <Compile Include="Assets\Sctips\RandomPosition.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/aidan/Documents/Humber (2020)/Engines 2/Intro to VR/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
