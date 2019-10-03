@@ -11,6 +11,7 @@
 /[Mm]emoryCaptures/
 
 /Intro to VR/
+/VR_UI/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
