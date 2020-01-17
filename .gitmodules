@@ -4,3 +4,9 @@
 [submodule "Production 2/Agile4Dev"]
 	path = Production 2/Agile4Dev
 	url = https://github.com/GAME2590NA/Agile4Dev
+[submodule "Production 2/temp"]
+	path = Production 2/temp
+	url = https://github.com/GAME2590NA/Agile4Test
+[submodule "Production 2/temp2"]
+	path = Production 2/temp2
+	url = https://github.com/GAME2590NA/Agile4Dev
