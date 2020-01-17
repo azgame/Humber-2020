@@ -1,6 +1,6 @@
-[submodule "Production 2/Test Env/Agile4Test"]
-	path = Production 2/Test Env/Agile4Test
+[submodule "Production 2/Agile4Test"]
+	path = Production 2/Agile4Test
 	url = https://github.com/GAME2590NA/Agile4Test
-[submodule "Production 2/Dev Env/Agile4Dev"]
-	path = Production 2/Dev Env/Agile4Dev
+[submodule "Production 2/Agile4Dev"]
+	path = Production 2/Agile4Dev
 	url = https://github.com/GAME2590NA/Agile4Dev
