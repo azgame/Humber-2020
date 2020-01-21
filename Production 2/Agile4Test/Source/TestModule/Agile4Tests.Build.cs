@@ -2,13 +2,13 @@
 
 using UnrealBuildTool;
 
-public class Agile4Test : ModuleRules
+public class Agile4Tests : ModuleRules
 {
-	public Agile4Test(ReadOnlyTargetRules Target) : base(Target)
+	public Agile4Tests(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Agile4Tests" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

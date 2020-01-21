@@ -9,6 +9,6 @@ public class Agile4TestTarget : TargetRules
 	{
 		Type = TargetType.Game;
 
-		ExtraModuleNames.AddRange( new string[] { "Agile4Test" } );
+		ExtraModuleNames.AddRange( new string[] { "Agile4Test", "Agile4Tests" } );
 	}
 }
