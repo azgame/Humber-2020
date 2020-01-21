@@ -1,13 +1,18 @@
 #include <iostream>
+#include "client.h"
 
 int Square(int num1);
+void Print(auto val);
 
 int main() {
 
+    Client c;
+    c.id = 5;
     int num1 = 5;
 
     int num2 = Square(num1);
-    std::cout << num2 << std::endl;
+    Print(num2);
+    Print(c.id);
     return 0;
 }
 
@@ -21,7 +26,6 @@ int Square(int num1) {
     return num2;
 }
 
-
-void Print() {
-
+void Print(auto val) {
+    std::cout << val << std::endl;
 }
