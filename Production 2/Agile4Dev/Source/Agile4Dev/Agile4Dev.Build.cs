@@ -6,6 +6,8 @@ public class Agile4Dev : ModuleRules
 {
 	public Agile4Dev(ReadOnlyTargetRules Target) : base(Target)
 	{
+		MinFilesUsingPrecompiledHeaderOverride = 1;
+ 		bFasterWithoutUnity = true;
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });

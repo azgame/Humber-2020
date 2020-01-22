@@ -1,31 +1,59 @@
 #include <iostream>
-#include "client.h"
+#include "Login.h"
 
-int Square(int num1);
-void Print(auto val);
+int Add(int* n1_, int* n2_);
+int Add(int a, int b);
+void Square(int &a);
 
 int main() {
 
-    Client c;
-    c.id = 5;
-    int num1 = 5;
+    Login login = Login();
 
-    int num2 = Square(num1);
-    Print(num2);
-    Print(c.id);
+    int n;
+    Client c = Client();
+    Client d = Client("John");
+    Client* e = new Client("Sarah");
+
+    std::cout << c.userName << std::endl;
+    std::cout << d.userName << std::endl;
+    std::cout << e->userName << std::endl;
+
+    e->SetUserName("Laura");
+
+    std::cout << e->userName << std::endl;
+
+    int input = 15;
+
+    if (login.CheckPassword(input, c.GetPassword()))
+    {
+        std::cout << "Login successfull" << std::endl;
+    }
+
+    /*int n = 10;
+
+    int *a = (int*)malloc(sizeof(int) * n);
+
+    std::cout << sizeof(a) << std::endl;
+
+    for (int i = 0; i < n; i++) {
+        a++;
+        std::cout << a << std::endl;
+    }*/
+
     return 0;
 }
 
-int Add(int num1, int num2) {
-    int num3 = num1 + num2;
-    return num3;
+int Add(int a, int b)
+{
+    return a + b;
 }
 
-int Square(int num1) {
-    int num2 = num1 * num1;
-    return num2;
+int Add(int* n1_, int* n2_)
+{
+    return *n1_ + *n2_;
 }
 
-void Print(auto val) {
-    std::cout << val << std::endl;
+void Square(int &a)
+{
+    a = a * a;
 }

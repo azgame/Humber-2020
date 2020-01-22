@@ -4,10 +4,12 @@
 
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
-#include "Engine.h"
-#include "EngineUtils.h"
+//#include "Engine.h"
+//#include "EngineUtils.h"
 
-#include "Engine/Engine.h"
+//#include "Engine/Engine.h"
+#include "GameFramework/Actor.h"
+//#include "UObject/UObjectGlobals.h"
 
 #include "Agile4TestGameModeBase.h"
 
@@ -29,14 +31,20 @@ bool FPlaceholderTest::RunTest(const FString& Parameters)
 {
 	
 	TestTrue("World created", AutomationOpenMap("/Game/Maps/TestMap"));
-	GEngine->AddOnScreenDebugMessage(2, 5.f, FColor::Cyan, TEXT("Hello from automation testing"));
+	//GEngine->AddOnScreenDebugMessage(2, 5.f, FColor::Cyan, TEXT("Hello from automation testing"));
 	UWorld* world = GetTestWorld();
 
+	FActorSpawnParameters spawnParam;
+	spawnParam.Name = "TestActor";
+	
+	AActor* testActor = world->SpawnActor<AActor>(spawnParam);
+	testActor->Tags.Add("Player");
+
 	TestTrue("Game mode set correctly", world->GetAuthGameMode()->IsA<AAgile4TestGameModeBase>());
-	TestTrue("World has a functional test", world->AreActorsInitialized());
+	TestTrue("World can initialize test actor", world->AreActorsInitialized());
 
 	/*for (TActorIterator<"MyClassHere"> It(world, "MyClassHere"::StaticClass()); It; ++It) {
-		TestTrue("Classes initialized", It->DoSomething());
+		TestTrue("Classes do something", It->DoSomething());
 	}*/
 
 	return true;
