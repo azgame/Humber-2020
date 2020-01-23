@@ -14,8 +14,9 @@ class AGILE4TEST_API AFlamethrower : public AAbility
 {
 	GENERATED_BODY()
 public:
+
 	AFlamethrower();
-	virtual void Activate();
-	virtual void Use();
+	virtual void Activate() override;
+	virtual void Use() override;
 	int abilityID;
 };

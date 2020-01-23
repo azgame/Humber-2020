@@ -7,4 +7,12 @@ AHealthPickUp::AHealthPickUp() {
 	stats.val = 5;
 }
 
+FStatPickUp AHealthPickUp::GetStat()
+{
+	return stats;
+}
 
+bool AHealthPickUp::Initialize()
+{
+	return false;
+}

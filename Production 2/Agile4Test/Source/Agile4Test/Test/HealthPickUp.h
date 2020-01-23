@@ -16,6 +16,12 @@ class AGILE4TEST_API AHealthPickUp : public APickUp
 
 public:
 	AHealthPickUp();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Pick Up")
 	FStatPickUp stats;
+
+	FStatPickUp GetStat() override;
+
+	bool Initialize() override;
 
 };

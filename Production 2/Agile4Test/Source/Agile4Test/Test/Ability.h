@@ -6,17 +6,18 @@
 #include "GameFramework/Actor.h"
 #include "Ability.generated.h"
 
-UCLASS()
+UCLASS(Abstract, Blueprintable)
 class AGILE4TEST_API AAbility : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
+	AAbility() {}
 	// Sets default values for this actor's properties
-	AAbility();
-	int abilityID;
-	virtual void Activate();
-	virtual void Use();
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual void Activate() PURE_VIRTUAL(AAbility::Activate, ;);
+	UFUNCTION(BlueprintCallable, Category = "Ability")
+	virtual void Use() PURE_VIRTUAL(AAbility::Use, ;);
 
 protected:
 	// Called when the game starts or when spawned

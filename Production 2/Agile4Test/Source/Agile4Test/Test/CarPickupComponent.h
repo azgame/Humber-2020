@@ -25,8 +25,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Stats")
 	void StatPickUp(FStatPickUp pickUp_);
+
+	UFUNCTION(BlueprintCallable, Category = "Stats")
 	int RetrieveStats(FString key_);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Stats")
 	TMap<FString, int> stats;
 
 		

@@ -9,7 +9,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
-#include "GameFramework//SpringArmComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 
 #include "Input.generated.h"
@@ -29,7 +29,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		UCameraComponent* FollowCamera;
 
+	UFUNCTION(BlueprintCallable, Category = "Movement")
 	void MoveForward(float axis);
+
+	UFUNCTION(BlueprintCallable, Category = "Movement")
 	void MoveRight(float axis);
 
 protected:
@@ -41,6 +44,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
+	UFUNCTION(BlueprintCallable, Category = "Input")
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 };

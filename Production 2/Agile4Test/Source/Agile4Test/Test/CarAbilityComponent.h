@@ -25,7 +25,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Ability")
 	void AbilityPickUp(AAbility* ab_);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Ability")
 	AAbility* ability;
 		
 };
