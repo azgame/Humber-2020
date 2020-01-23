@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "PickUp.h"
+#include "CarPickUpComponent.h"
 #include "HealthPickUp.generated.h"
 
 /**
@@ -16,6 +17,7 @@ class AGILE4DEV_API AHealthPickUp : public APickUp
 
 public:
 	AHealthPickUp();
+	FStatPickUp* pickup;
 	FString key;
 	int val;
 

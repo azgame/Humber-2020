@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Ability.generated.h"
 
-UCLASS()
+UCLASS(ABSTRACT)
 class AGILE4DEV_API AAbility : public AActor
 {
 	GENERATED_BODY()

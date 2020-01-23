@@ -4,8 +4,9 @@
 #include "Flamethrower.h"
 
 AFlamethrower::AFlamethrower() {
-	abilityID = 1;
+	abilityID = 0;
 }
+
 void AFlamethrower::Activate()
 {
 	Super::Activate();

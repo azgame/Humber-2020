@@ -17,6 +17,15 @@ struct FStatPickUp
 	UPROPERTY()
 		FString key;
 
+	FStatPickUp() {
+		val = 0;
+		key = "";
+	}
+
+	FStatPickUp(int val_, FString key_) {
+		val = val_;
+		key = key_;
+	}
 
 
 };
