@@ -20,4 +20,5 @@ class AGILE4DEV_API AFlamethrowerPickUp : public APickUp
 public:
 	AFlamethrowerPickUp();
 	AAbility* ability;
+
 };

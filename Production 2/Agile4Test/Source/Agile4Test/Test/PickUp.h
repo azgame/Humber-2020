@@ -15,19 +15,22 @@ struct AGILE4TEST_API FStatPickUp
 	FString key;
 	UPROPERTY(BlueprintReadWrite, Category = "Value")
 	int val;
+
+	FStatPickUp() {}
 };
 
-UCLASS()
+UCLASS(Abstract, Blueprintable)
 class AGILE4TEST_API APickUp : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APickUp();
-	int id;
-	virtual void Initialize();
+	APickUp() {}
+	virtual bool Initialize() PURE_VIRTUAL(APickUp::Initialize, return true;);
 	
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+	virtual FStatPickUp GetStat() PURE_VIRTUAL(APickUp::GetStat, return FStatPickUp(););
 
 protected:
 	// Called when the game starts or when spawned

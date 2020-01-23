@@ -15,7 +15,7 @@ class AGILE4DEV_API AFlamethrower : public AAbility
 	GENERATED_BODY()
 public:
 	AFlamethrower();
-	virtual void Activate();
-	virtual void Use();
+	void Activate();
+	void Use();
 	int abilityID;
 };

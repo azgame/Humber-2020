@@ -6,10 +6,12 @@
 AFlamethrower::AFlamethrower() {
 	abilityID = 1;
 }
+
 void AFlamethrower::Activate()
 {
 	Super::Activate();
 }
+
 void AFlamethrower::Use()
 {
 	Super::Use();

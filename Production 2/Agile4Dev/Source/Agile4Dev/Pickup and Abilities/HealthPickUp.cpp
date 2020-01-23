@@ -3,8 +3,10 @@
 
 #include "HealthPickUp.h"
 AHealthPickUp::AHealthPickUp() {
+	
 	key = "health";
 	val = 5;
+	pickup = new FStatPickUp(val, key);
 }
 
 
