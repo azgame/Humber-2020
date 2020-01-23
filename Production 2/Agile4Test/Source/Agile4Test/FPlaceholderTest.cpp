@@ -4,12 +4,6 @@
 
 #include "Misc/AutomationTest.h"
 #include "Tests/AutomationCommon.h"
-#include "EngineUtils.h"
-#include "Engine/Engine.h"
-#include "GameFramework/Actor.h"
-#include "Public/Input.h"
-#include "Test/Flamethrower.h"
-#include "Test/HealthPickUp.h"
 
 #include "Agile4TestGameModeBase.h"
 
@@ -31,7 +25,6 @@ bool FPlaceholderTest::RunTest(const FString& Parameters)
 {
 	
 	TestTrue("World created", AutomationOpenMap("/Game/Maps/TestMap"));
-	GEngine->AddOnScreenDebugMessage(2, 5.f, FColor::Cyan, TEXT("Init Automation Testing"));
 	UWorld* world = GetTestWorld();
 
 	TestTrue("Game mode set correctly", world->GetAuthGameMode()->IsA<AAgile4TestGameModeBase>());
