@@ -10,6 +10,7 @@ AFlamethrower::AFlamethrower() {
 void AFlamethrower::Activate()
 {
 	Super::Activate();
+
 }
 
 void AFlamethrower::Use()
