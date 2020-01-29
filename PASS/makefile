@@ -1,9 +1,11 @@
+output: main.o client.o
+	g++ main.o client.o -o output
 
-output: main.o
-	g++ main.o -o output
+main.o: main.cpp client.cpp
+	g++ -c main.cpp client.cpp
 
-main.o: main.cpp
-	g++ -c main.cpp
+client.o: client.cpp
+	g++ -c client.cpp
 
 clean:
-	-del output.exe *.o
+	-del *.o *.exe

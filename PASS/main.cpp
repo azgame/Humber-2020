@@ -1,61 +1,59 @@
 #include <iostream>
-#include <string>
-#include <limits>
+#include "Login.h"
 
-int Square(int);
-
-/*
-  Notes:
-*/
-
-class Test
-{
-public:
-  	Test() {
-    		n = 0;
-  	}
-
-  	~Test() {}
-
-  	int GetN() { return n; }
-  	void SetN(int n_) { n = n_; }
-
-private:
-  	int n;
-};
-
-
+int Add(int* n1_, int* n2_);
+int Add(int a, int b);
+void Square(int &a);
 
 int main() {
 
-	bool isRunning = true;
-	while (isRunning)
-  	{
-    		int num;
-    		if (std::cout << "Give number: " && !(std::cin >> num)) {
-      			return -1;
-    		}
-    		std::string choice;
-    		while (std::cout << "Select function: " && !(std::cin >> choice)) {
-      			std::cin.clear();
-      			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-      			std::cout << "Invalid input; please re-enter.\n";
-    		}
-    		if (choice == "square")
-    		{
-      			std::cout << Square(num) << std::endl;
-    		}
-    		else if (choice == "exit")
-    		{
-      			isRunning = false;
-    		}
-	}
+    Login login = Login();
 
-  	return 0;
+    int n;
+    Client c = Client();
+    Client d = Client("John");
+    Client* e = new Client("Sarah");
+
+    std::cout << c.userName << std::endl;
+    std::cout << d.userName << std::endl;
+    std::cout << e->userName << std::endl;
+
+    e->SetUserName("Laura");
+
+    std::cout << e->userName << std::endl;
+
+    int input = 15;
+
+    if (login.CheckPassword(input, c.GetPassword()))
+    {
+        std::cout << "Login successfull" << std::endl;
+    }
+
+    /*int n = 10;
+
+    int *a = (int*)malloc(sizeof(int) * n);
+
+    std::cout << sizeof(a) << std::endl;
+
+    for (int i = 0; i < n; i++) {
+        a++;
+        std::cout << a << std::endl;
+    }*/
+
+    return 0;
 }
 
-
-int Square(int sq)
+int Add(int a, int b)
 {
-  	return sq * sq;
+    return a + b;
+}
+
+int Add(int* n1_, int* n2_)
+{
+    return *n1_ + *n2_;
+}
+
+void Square(int &a)
+{
+    a = a * a;
 }
