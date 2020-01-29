@@ -1,0 +1,4 @@
+[INFO]: Creating Start Scene in: StartScene.cpp on line: 14
+[INFO]: Game Interface was created succesfully in: CoreEngine.cpp on line: 21
+[INFO]: Engine was created correctly in: CoreEngine.cpp on line: 26
+[INFO]: Creating Game Scene in: GameScene.cpp on line: 15

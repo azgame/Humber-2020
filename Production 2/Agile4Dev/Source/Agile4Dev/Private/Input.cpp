@@ -26,7 +26,6 @@ AInput::AInput()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 
 	FollowCamera->bUsePawnControlRotation = false;
-
 }
 
 void AInput::MoveForward(float axis)
