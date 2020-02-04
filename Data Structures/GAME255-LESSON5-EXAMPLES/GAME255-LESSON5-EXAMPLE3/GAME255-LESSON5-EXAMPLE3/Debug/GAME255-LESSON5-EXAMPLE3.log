@@ -1,0 +1,3 @@
+﻿  main.cpp
+C:\Users\JP\Documents\Humber\Courses\W20\GAME255-DataStructure&DesignPatterns\NOTES\LESSON5\GAME255-LESSON5-EXAMPLES\GAME255-LESSON5-EXAMPLE3\GAME255-LESSON5-EXAMPLE3\BST.h(305): warning C4715: 'BST<int,Player>::find': not all control paths return a value
+  GAME255-LESSON5-EXAMPLE3.vcxproj -> C:\Users\JP\Documents\Humber\Courses\W20\GAME255-DataStructure&DesignPatterns\NOTES\LESSON5\GAME255-LESSON5-EXAMPLES\GAME255-LESSON5-EXAMPLE3\Debug\GAME255-LESSON5-EXAMPLE3.exe
