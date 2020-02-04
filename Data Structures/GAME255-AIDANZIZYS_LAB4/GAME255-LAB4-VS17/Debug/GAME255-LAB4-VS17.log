@@ -1,6 +1,2 @@
 ﻿  main.cpp
-c:\users\aidan\documents\humber (2020)\data structures\game255-aidanzizys_lab4\game255-lab4-vs17\hashtable.h(181): warning C4018: '<': signed/unsigned mismatch
-  c:\users\aidan\documents\humber (2020)\data structures\game255-aidanzizys_lab4\game255-lab4-vs17\hashtable.h(157): note: while compiling class template member function 'void HashTable<int>::resize(void)'
-  c:\users\aidan\documents\humber (2020)\data structures\game255-aidanzizys_lab4\game255-lab4-vs17\main.cpp(43): note: see reference to function template instantiation 'void HashTable<int>::resize(void)' being compiled
-  c:\users\aidan\documents\humber (2020)\data structures\game255-aidanzizys_lab4\game255-lab4-vs17\main.cpp(27): note: see reference to class template instantiation 'HashTable<int>' being compiled
-  GAME255-LAB4-VS17.vcxproj -> C:\Users\aidan\Documents\Humber (2020)\Data Structures\GAME255-AIDANZIZYS_LAB4\Debug\GAME255-LAB4-VS17.exe
+  GAME255-LAB4-VS17.vcxproj -> C:\Users\aidan\Documents\Humber-2020\Data Structures\GAME255-LAB4-VS17\Debug\GAME255-LAB4-VS17.exe
