@@ -164,7 +164,7 @@ class HashTable
 
 			// Create a size_t variable and store the size of the original table
 			// This will keep a reference to the original hash table size
-			Node* end = tempTable + getSize();
+			Node* end = tempTable + getSize() - 1;
 			
 			// Create an if statement to check whether the size is great than 0
 			// If it is greater than 0, set double the size and find the next prime number
@@ -183,7 +183,8 @@ class HashTable
 			// This will allow you to copy the information stored in the original hash table, and insert it into the new hash table
 
 			//BEGIN LOOP
-			for (Node* n = tempTable; n != end; ++n) {
+			Node* n = tempTable;
+			for (n; n != end; ++n) {
 				// Insert the key and value from the original hash table into the new table
 				// Use the insert method to create a new entry in the new hash table
 				insert(n->getKey(), n->getValue());
@@ -195,6 +196,10 @@ class HashTable
 				n->setValue(NULL);
 			//END LOOP
 			}
+
+			insert(n->getKey(), n->getValue());
+			n->key = "";
+			n->setValue(NULL);
 
 			// Delete the original hash table
 			SAFE_DELETE_ARRAY(tempTable);
