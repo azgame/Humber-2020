@@ -7,6 +7,9 @@
 #include "GameInterface.h"
 #include "Scene.h"
 #include "../Rendering/3D/GameObject.h"
+#include "../Graphics/ShaderHandler.h"
+#include "../Graphics/TextureHandler.h"
+#include "../Camera/Camera.h"	
 
 class CoreEngine
 {
@@ -21,14 +24,19 @@ public:
 
 	bool OnCreate(std::string name_, int width_, int height_);
 	void Run();
-	bool GetIsRunning() const;
 
 	static CoreEngine* GetInstance();
 
-	void SetGameInterface(GameInterface* gameInterface_);
 
 	int GetCurrentScene();
+	bool GetIsRunning() const;
+	glm::vec2 GetWindowSize() const;
+	Camera* GetCamera() const;
+
+
 	void SetCurrentScene(int sceneNum_);
+	void SetGameInterface(GameInterface* gameInterface_);
+	void SetCamera(Camera* camera_);
 	void Exit();
 private:
 	CoreEngine();
@@ -48,6 +56,8 @@ private:
 	GameInterface* gameInterface;
 
 	int currentSceneNum;
+
+	Camera* camera;
 };
 
 #endif // !COREENGINE_H

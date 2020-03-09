@@ -38,6 +38,9 @@ bool Window::OnCreate(std::string name_, int width_, int height_) {
 	}
 
 	glEnable(GL_DEPTH_TEST);
+
+	glViewport(0, 0, width, height);
+
 	std::cout << "Graphics card: " << glGetString(GL_VENDOR) << std::endl;
 	std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
 	

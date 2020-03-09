@@ -14,6 +14,7 @@ public:
 	virtual void Render();
 private:
 	GameObject* shape;
+	GameObject* shape2;
 };
 
 #endif // !GAMESCENE_H

@@ -9,6 +9,9 @@
 #include "app\app.h"
 //------------------------------------------------------------------------
 
+#include "Grid.h"
+#include "Graph.h"
+
 //------------------------------------------------------------------------
 // Eample data....
 //------------------------------------------------------------------------
@@ -21,6 +24,12 @@ enum
 	ANIM_LEFT,
 	ANIM_RIGHT,
 };
+
+int n = 10;
+int cellWidth = APP_VIRTUAL_WIDTH / n;
+int cellHeight = APP_VIRTUAL_HEIGHT / n;
+Grid<CSimpleSprite*>* grid = new Grid<CSimpleSprite*>(n, n);
+Graph<CSimpleSprite*>* sceneGraph = new Graph<CSimpleSprite*>(n * n);
 //------------------------------------------------------------------------
 
 //------------------------------------------------------------------------
@@ -30,7 +39,6 @@ void Init()
 {
 	//------------------------------------------------------------------------
 	// Example Sprite Code....
-	
 
 	testSprite = App::CreateSprite(".\\TestData\\Test.bmp", 8, 4);
 	testSprite->SetPosition(400.0f, 400.0f);
@@ -46,6 +54,46 @@ void Init()
 	testSprite2->SetFrame(2);
 	testSprite2->SetScale(1.0f);
 	//------------------------------------------------------------------------
+	CSimpleSprite** objects = new CSimpleSprite * [n * n];
+
+	for (int x = 0; x < grid->getWidth(); x++)
+	{
+		for (int y = 0; y < grid->getHeight(); y++)
+		{
+			grid->assign(x, y, App::CreateSprite(".\\TestData\\Test.bmp", 8, 4));
+			grid->at(x, y)->SetPosition((x * cellWidth) + (cellWidth / 2), (y * cellHeight) + (cellHeight / 2));
+			float speed = 1.0f / 15.0f;
+			grid->at(x, y)->CreateAnimation(ANIM_BACKWARDS, speed, { 0,1,2,3,4,5,6,7 });
+			grid->at(x, y)->CreateAnimation(ANIM_LEFT, speed, { 8,9,10,11,12,13,14,15 });
+			grid->at(x, y)->CreateAnimation(ANIM_RIGHT, speed, { 16,17,18,19,20,21,22,23 });
+			grid->at(x, y)->CreateAnimation(ANIM_FORWARDS, speed, { 24,25,26,27,28,29,30,31 });
+			grid->at(x, y)->SetScale(1.0f);
+			objects[(x * grid->getWidth()) + y] = grid->at(x, y);
+		}
+	}	
+
+	sceneGraph->Init(n * n, objects);
+
+	CSimpleSprite*** quad = grid->getQuad(2, 6, 3, 5);
+	for (int w = 0; w < 4; w++)
+		for (int h = 0; h < 2; h++)
+		{
+			if (quad[h][w])
+				quad[h][w]->SetColor(0.0f, 1.0f, 1.0f);
+		}
+			
+	CSimpleSprite** radius = grid->getRadius(6, 6, 3);
+	int size = 1;
+	for (int i = 1; i <= 3; i++)
+		size += 4 * i;
+	for (int i = 0; i < size; i++)
+	{
+		if (radius[i])
+			radius[i]->SetAngle(180.0f);
+	}
+
+	quad = nullptr;
+	radius = nullptr;
 }
 
 //------------------------------------------------------------------------
@@ -156,6 +204,13 @@ void Render()
 	testSprite2->Draw();
 	//------------------------------------------------------------------------
 
+	for (int x = 0; x < grid->getWidth(); x++)
+		for (int y = 0; y < grid->getHeight(); y++)
+		{
+			if (grid->at(x, y))
+				grid->at(x, y)->Draw();
+		}
+			
 	//------------------------------------------------------------------------
 	// Example Text.
 	//------------------------------------------------------------------------
@@ -173,4 +228,5 @@ void Shutdown()
 	delete testSprite;
 	delete testSprite2;
 	//------------------------------------------------------------------------
+	SAFE_DELETE(grid);
 }

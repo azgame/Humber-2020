@@ -426,10 +426,14 @@ class BST
 		void visitPreOrder(Node *node, VisitFunction f)
 		{
 			//Traverse all items in the tree by visiting the root node, then the left node, and finally the right node
+			if (node == NULL)
+				return;
+
+			f(node->value);
 			
+			visitPreOrder(node->left, f);
 
-
-
+			visitPreOrder(node->right, f);
 		}
 
 		//Traverse post order and use functor
@@ -437,10 +441,14 @@ class BST
 		void visitPostOrder(Node *node, VisitFunction f)
 		{
 			//Traverse all items in the tree by visiting the left node, then the right node, and finally the root node
-			
+			if (node == NULL)
+				return;
 
+			visitPostOrder(node->left, f);
 
+			visitPostOrder(node->right, f);
 
+			f(node->value);
 		}
 
 		//Traverse level order and use functor
@@ -449,20 +457,25 @@ class BST
 		{
 			//Declare queue of nodes used to accumulate sibling nodes
 			//You can use STL's queue 
-
+			std::queue<Node*> queue;
 			//Declare a node pointer and set it to the current node
-			
+			Node* current = node;
 			//Loop until current node reaches NULL
-
-			//Call functor and pass current node's value as the parameter
-				
-			//If the left branch is not NULL, enqueue left branch
-
-			//If the right branch is not NULL, enqueue right branch
-				
-			//If queue is not empty set current node to the front of the queue and pop from the queue
-			//Else set the current node to NULL
-				
+			while (current != nullptr) {
+				//Call functor and pass current node's value as the parameter
+				f(current->value);
+				//If the left branch is not NULL, enqueue left branch
+				if (current->left != nullptr) queue.push(current->left);
+				//If the right branch is not NULL, enqueue right branch
+				if (current->right != nullptr) queue.push(current->right);
+				//If queue is not empty set current node to the front of the queue and pop from the queue
+				//Else set the current node to NULL
+				if (!queue.empty()) {
+					current = queue.front();
+					queue.pop();
+				}
+				else current = nullptr;
+			}
 		}
 };
 

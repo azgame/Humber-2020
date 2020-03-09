@@ -1,21 +1,46 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh(std::vector<Vertex>* vertexList_) : vertexList(std::vector<Vertex>()), VAO(0), VBO(0) {
-	vertexList.reserve(100);
-	vertexList = *vertexList_;
+Mesh::Mesh(SubMesh subMesh_, GLuint shaderProgram_) : VAO(0), VBO(0), modelLoc(0), viewLoc(0), projLoc(0), textureLoc(0) {
+	subMesh = subMesh_;
+	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
 
 Mesh::~Mesh() {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
+
+	if (subMesh.vertexList.size() > 0) {
+		subMesh.vertexList.clear();
+	}
+
+	if (subMesh.meshIndices.size() > 0) {
+		subMesh.meshIndices.clear();
+	}
 }
 
-void Mesh::Render() {
+void Mesh::Render(Camera* camera_, std::vector<glm::mat4> instances_) {
+	glUniform1i(textureLoc, 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
+
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetView()));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(camera_->GetPerspective()));
+
+	glUniform1f(lightAmbientLoc, camera_->GetLightSources().at(0)->GetAmbient());
+	glUniform1f(lightDiffuseLoc, camera_->GetLightSources().at(0)->GetDiffuse());
+	glUniform3fv(lightColourLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetColour()));
+	glUniform3fv(lightPositionLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetPosition()));
+	glUniform3fv(viewPositionLoc, 1, glm::value_ptr(camera_->GetPosition()));
+
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+	for (int i = 0; i < instances_.size(); i++) {
+		glUniformMatrix4fv(modelLoc, 1,  GL_FALSE, glm::value_ptr(instances_[i]));
+		glDrawArrays(GL_TRIANGLES, 0, subMesh.vertexList.size());
+	}
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::GenerateBuffers() {
@@ -28,7 +53,7 @@ void Mesh::GenerateBuffers() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	//Pass in data, make sure to * by size of data type.
-	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex), &vertexList[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, subMesh.vertexList.size() * sizeof(Vertex), &subMesh.vertexList[0], GL_STATIC_DRAW);
 
 	//POSITION
 	glEnableVertexAttribArray(0);
@@ -49,4 +74,15 @@ void Mesh::GenerateBuffers() {
 	//Unbind array and buffer
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	modelLoc = glGetUniformLocation(shaderProgram, "model");
+	viewLoc = glGetUniformLocation(shaderProgram, "view");
+	projLoc = glGetUniformLocation(shaderProgram, "proj");
+	textureLoc = glGetUniformLocation(shaderProgram, "inputTexture");
+
+	viewPositionLoc = glGetUniformLocation(shaderProgram, "viewPosition");
+	lightPositionLoc = glGetUniformLocation(shaderProgram, "light.lightPos");
+	lightAmbientLoc = glGetUniformLocation(shaderProgram, "light.ambient");
+	lightDiffuseLoc = glGetUniformLocation(shaderProgram, "light.diffuse");
+	lightColourLoc = glGetUniformLocation(shaderProgram, "light.lightColour");
 }
