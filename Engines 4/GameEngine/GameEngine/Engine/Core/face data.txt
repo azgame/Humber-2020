@@ -1,0 +1,54 @@
+if (line.substr(0, 2) == "f ") {
+			int vert, text, norm;
+
+			// Find first number in cluster of 3 for each vertex, texture, and normal indicies
+			std::string data = line.substr(2);
+			int space = data.find(" ");
+			std::string d1 = data.substr(0, space);
+			std::stringstream vertText(d1.substr(0, d1.find("/")));
+			vertText >> vert;
+			indices.push_back(vert - 1);
+			d1 = d1.substr(d1.find("/") + 1);
+			std::stringstream texText(d1.substr(0, d1.find("/")));
+			texText >> text;
+			textureIndices.push_back(text - 1);
+			d1 = d1.substr(d1.find("/") + 1);
+			std::stringstream normText(d1.substr(0, d1.find("/")));
+			normText >> norm;
+			normalIndices.push_back(norm - 1);
+
+			space = data.find(" ");
+
+			// Find the second number in the cluster of 3 between the '/'
+			data = data.substr(data.find(" ") + 1);
+			std::string d2 = data.substr(0, data.find(" "));
+			std::stringstream vertText2(d2.substr(0, d2.find("/")));
+			vertText2 >> vert;
+			indices.push_back(vert - 1);
+			d2 = d2.substr(d2.find("/") + 1);
+			std::stringstream texText2(d2.substr(0, d2.find("/")));
+			texText2 >> text;
+			textureIndices.push_back(text - 1);
+			d2 = d2.substr(d2.find("/") + 1);
+			std::stringstream normText2(d2.substr(0, d2.find("/")));
+			normText2 >> norm;
+			normalIndices.push_back(norm - 1);
+
+			space = data.find(" ");
+
+			//Find the last number after the 2 '/'
+			data = data.substr(data.find(" ") + 1);
+			std::string d3 = data.substr(0, data.find(" "));
+			std::stringstream vertText3(d3.substr(0, d3.find("/")));
+			vertText3 >> vert;
+			indices.push_back(vert - 1);
+			d3 = d3.substr(d3.find("/") + 1);
+			std::stringstream texText3(d3.substr(0, d3.find("/")));
+			texText3 >> text;
+			textureIndices.push_back(text - 1);
+			d3 = d3.substr(d3.find("/") + 1);
+			std::stringstream normText3(d3.substr(0, d3.find("/")));
+			normText3 >> norm;
+			normalIndices.push_back(norm - 1);
+
+		}

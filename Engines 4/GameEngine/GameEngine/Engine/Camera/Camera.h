@@ -20,6 +20,8 @@ public:
 	void AddLightSources(LightSource* lightsource_);
 	std::vector<LightSource*> GetLightSources();
 	glm::vec3 GetPosition();
+	void ProcessMouseMovement(glm::vec2 offset_);
+	void ProcessMouseZoom(int y_);
 private:
 	void UpdateCameraVector();
 
@@ -29,7 +31,7 @@ private:
 	float yaw, pitch;
 	float nearPlane, farPlane;
 	glm::vec3 forward, up, right, worldUp;
-	std::vector<LightSource*> lightsources;
+	std::vector<LightSource*> lightSources;
 
 };
 

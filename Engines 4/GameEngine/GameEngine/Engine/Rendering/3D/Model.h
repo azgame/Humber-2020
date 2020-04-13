@@ -17,13 +17,16 @@ public:
 
 	int CreateInstance(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_);
 	void UpdateInstance(int index_, glm::vec3 position, float angle_, glm::vec3 rotation_, glm::vec3 scale_);
+	GLuint GetShaderProgram() const;
+
+	BoundingBox GetBoundingBox();
 
 private:
 	std::vector<Mesh*> subMeshes;
 	GLuint shaderProgram;
 	std::vector<glm::mat4> modelInstances;
 	LoadOBJModel* obj;
-
+	BoundingBox box;
 	glm::mat4 GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const;
 	void LoadModel();
 

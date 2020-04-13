@@ -13,10 +13,12 @@ ShaderHandler::~ShaderHandler(){
 }
 
 void ShaderHandler::OnDestroy(){
-	for (auto p : programs) {
-		glDeleteProgram(p.second);
+	if (programs.size() > 0) {
+		for (auto p : programs) {
+			glDeleteProgram(p.second);
+		}
+		programs.clear();
 	}
-	programs.clear();
 }
 
 std::string ShaderHandler::ReadShader(const std::string& filePath_){

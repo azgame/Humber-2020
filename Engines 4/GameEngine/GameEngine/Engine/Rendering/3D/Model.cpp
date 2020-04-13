@@ -37,10 +37,6 @@ void Model::AddMesh(Mesh * mesh_) {
 	subMeshes.push_back(mesh_);
 }
 
-glm::mat4 Model::GetTransform(int index_) const
-{
-	return modelInstances[index_];
-}
 
 int Model::CreateInstance(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_)
 {
@@ -53,16 +49,30 @@ void Model::UpdateInstance(int index_, glm::vec3 position_, float angle_, glm::v
 	modelInstances[index_] = GetTransform(position_, angle_, rotation_, scale_);
 }
 
+
+
 void Model::LoadModel()
 {
 	for (int i = 0; i < obj->GetSubMeshes().size(); i++) {
 		subMeshes.push_back(new Mesh(obj->GetSubMeshes()[i], shaderProgram));
 	}
+
+	box = obj->GetBoundingBox();
+
 	delete obj;
 	obj = nullptr;
 }
 
 // getters
+glm::mat4 Model::GetTransform(int index_) const
+{
+	return modelInstances[index_];
+}
+
+GLuint Model::GetShaderProgram() const
+{
+	return shaderProgram;
+}
 
 glm::mat4 Model::GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotation_, glm::vec3 scale_) const
 {
@@ -73,4 +83,8 @@ glm::mat4 Model::GetTransform(glm::vec3 position_, float angle_, glm::vec3 rotat
 	return model;
 }
 
+BoundingBox Model::GetBoundingBox()
+{
+	return box;
+}
 // setters

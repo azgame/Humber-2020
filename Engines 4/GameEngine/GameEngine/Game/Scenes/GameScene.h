@@ -2,6 +2,7 @@
 #define GAMESCENE_H
 
 #include "../../Engine/Core/CoreEngine.h"
+#include <glm/gtx/string_cast.hpp>
 
 class GameScene : public Scene
 {
@@ -13,8 +14,7 @@ public:
 	virtual void Update(const float deltaTime_);
 	virtual void Render();
 private:
-	GameObject* shape;
-	GameObject* shape2;
+
 };
 
 #endif // !GAMESCENE_H

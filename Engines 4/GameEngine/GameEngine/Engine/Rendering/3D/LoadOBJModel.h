@@ -2,8 +2,10 @@
 #define LOADOBJMODEL_H
 
 #include "Mesh.h"
-#include "../../Graphics/TextureHandler.h"
+#include "..//..//FX/MaterialLoader.h"
+#include "../../Math/BoundingBox.h"
 #include <sstream>
+
 
 
 class LoadOBJModel {
@@ -17,6 +19,7 @@ public:
 	std::vector<Vertex> GetVerts();
 	std::vector<int> GetIndicies();
 	std::vector<SubMesh> GetSubMeshes();
+	BoundingBox GetBoundingBox();
 	
 	void OnDestroy();
 
@@ -33,7 +36,9 @@ private:
 	void LoadMaterial(const std::string& matName_);
 	void LoadMaterialLibrary(const std::string& matFilePath_);
 
-	GLuint currentTexture;
+	Material currentMaterial;
+	BoundingBox box;
+	float maxX, maxY, maxZ, minX, minY, minZ;
 
 };
 #endif

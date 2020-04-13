@@ -90,12 +90,12 @@ unsigned char * loadBMPRaw(const char * imagepath, unsigned int& outWidth, unsig
         unsigned char g = colorData[1];
         unsigned char r = colorData[2];        
         unsigned char a = colorData[3];
-        colorData[0] = r;        
-        colorData[1] = g;
-        colorData[2] = b;
-        colorData[3] = a;
+
+		colorData[0] = r;
+		colorData[1] = g;
+		colorData[2] = b;
+		colorData[3] = a;
         colorData += 4;
-        
     }
 
 	if (flipY)
@@ -116,4 +116,3 @@ unsigned char * loadBMPRaw(const char * imagepath, unsigned int& outWidth, unsig
 
 	return data;
 }
-

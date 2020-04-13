@@ -11,10 +11,12 @@ protected:
 	GameObject* owner = nullptr;
 
 public:
-	virtual bool Init() { return true; }
-	virtual void Update(float deltaTime) {}
-	virtual void Draw() {}
-	virtual void Attach(GameObject* owner_) {}
+	Component(GameObject* owner_) { owner = owner_; }
+	virtual ~Component() {}
+	virtual bool Init() = 0;
+	virtual void Update(float deltaTime) = 0;
+	virtual void Draw() = 0;
+	virtual void Attach(GameObject* owner_) = 0;
 };
 
 #endif

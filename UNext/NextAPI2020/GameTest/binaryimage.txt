@@ -1,0 +1,15 @@
+// test
+		if (a < 100)
+		{
+			colorData[0] = 0;
+			colorData[1] = 0;
+			colorData[2] = 0;
+			colorData[3] = 0;
+		}
+		else
+		{
+			colorData[0] = 255;
+			colorData[1] = 255;
+			colorData[2] = 255;
+			colorData[3] = 255;
+		}

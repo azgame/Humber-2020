@@ -1,7 +1,7 @@
 #include "LoadOBJModel.h"
 
 LoadOBJModel::LoadOBJModel(){
-	currentTexture = 0;
+	currentMaterial = Material();
 	vertices.reserve(200);
 	normals.reserve(200);
 	textureCoords.reserve(200);
@@ -10,6 +10,7 @@ LoadOBJModel::LoadOBJModel(){
 	textureIndices.reserve(200);
 	meshVertices.reserve(200);
 	subMeshes.reserve(10);
+	box = BoundingBox();
 }
 
 LoadOBJModel::~LoadOBJModel(){
@@ -35,6 +36,30 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 			float x, y, z;
 			v >> x >> y >> z;
 
+			if (x > maxX) {
+				maxX = x;
+			}
+			if (y > maxY) {
+				maxY = y;
+			}
+			if (z > maxZ) {
+				maxZ = z;
+			}
+			if (x < minX) {
+				minX = x;
+			}
+			if (y < maxY) {
+				minY = y;
+			}
+			if (z < maxZ) {
+				minZ = z;
+			}
+			box.maxVert.x = maxX;
+			box.maxVert.y = maxY;
+			box.maxVert.z = maxZ;
+			box.minVert.x = minX;
+			box.minVert.y = minY;
+			box.minVert.z = minZ;
 			vertices.push_back(glm::vec3(x, y, z));
 		}
 		//NORMAL DATA
@@ -74,58 +99,44 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 			normalIndices.push_back(i);
 		}*/
 		if (line.substr(0, 2) == "f ") {
-			int vert, text, norm;
-
-			// Find first number in cluster of 3 for each vertex, texture, and normal indicies
 			std::string data = line.substr(2);
-			int space = data.find(" ");
-			std::string d1 = data.substr(0, space);
-			std::stringstream vertText(d1.substr(0, d1.find("/")));
-			vertText >> vert;
-			indices.push_back(vert - 1);
-			d1 = d1.substr(d1.find("/") + 1);
-			std::stringstream texText(d1.substr(0, d1.find("/")));
-			texText >> text;
-			textureIndices.push_back(text - 1);
-			d1 = d1.substr(d1.find("/") + 1);
-			std::stringstream normText(d1.substr(0, d1.find("/")));
-			normText >> norm;
-			normalIndices.push_back(norm - 1);
+			int endPosition = 0;
+			while ((endPosition = data.find(' ')) != std::string::npos) {
+				std::string chunk = data.substr(0, endPosition);
+				int subEndPos = 0;
+				int vector = 0;
 
-			space = data.find(" ");
 
-			// Find the second number in the cluster of 3 between the '/'
-			data = data.substr(data.find(" ") + 1);
-			std::string d2 = data.substr(0, data.find(" "));
-			std::stringstream vertText2(d2.substr(0, d2.find("/")));
-			vertText2 >> vert;
-			indices.push_back(vert - 1);
-			d2 = d2.substr(d2.find("/") + 1);
-			std::stringstream texText2(d2.substr(0, d2.find("/")));
-			texText2 >> text;
-			textureIndices.push_back(text - 1);
-			d2 = d2.substr(d2.find("/") + 1);
-			std::stringstream normText2(d2.substr(0, d2.find("/")));
-			normText2 >> norm;
-			normalIndices.push_back(norm - 1);
+				for (int i = 0; i < 3; i++) {
+					int push;
+					if ((subEndPos = chunk.find('/')) != std::string::npos) {
 
-			space = data.find(" ");
+						push = std::stoi(chunk.substr(0, subEndPos));
 
-			//Find the last number after the 2 '/'
-			data = data.substr(data.find(" ") + 1);
-			std::string d3 = data.substr(0, data.find(" "));
-			std::stringstream vertText3(d3.substr(0, d3.find("/")));
-			vertText3 >> vert;
-			indices.push_back(vert - 1);
-			d3 = d3.substr(d3.find("/") + 1);
-			std::stringstream texText3(d3.substr(0, d3.find("/")));
-			texText3 >> text;
-			textureIndices.push_back(text - 1);
-			d3 = d3.substr(d3.find("/") + 1);
-			std::stringstream normText3(d3.substr(0, d3.find("/")));
-			normText3 >> norm;
-			normalIndices.push_back(norm - 1);
+						chunk.erase(0, subEndPos + 1);
+					}
+					else {
+						push = std::stoi(chunk);
+					}
 
+					push--;
+
+					switch (i) {
+					default:
+					case 0:
+						indices.push_back(push);
+						break;
+					case 1:
+						textureIndices.push_back(push);
+						break;
+					case 2:
+						normalIndices.push_back(push);
+						break;
+					}
+				}
+				vector = 0;
+				data.erase(0, endPosition + 1);
+			}
 		}
 		//New Mesh
 		else if (line.substr(0, 7) == "usemtl ") {
@@ -148,6 +159,11 @@ std::vector<int> LoadOBJModel::GetIndicies() {
 
 std::vector<SubMesh> LoadOBJModel::GetSubMeshes(){
 	return subMeshes;
+}
+
+BoundingBox LoadOBJModel::GetBoundingBox()
+{
+	return box;
 }
 
 void LoadOBJModel::OnDestroy(){
@@ -173,7 +189,7 @@ void LoadOBJModel::PostProcessing(){
 	SubMesh subMesh;
 	subMesh.vertexList = meshVertices;
 	subMesh.meshIndices = indices;
-	subMesh.textureID = currentTexture;
+	subMesh.material = currentMaterial;
 
 	subMeshes.push_back(subMesh);
 
@@ -181,28 +197,17 @@ void LoadOBJModel::PostProcessing(){
 	normalIndices.clear();
 	textureIndices.clear();
 	meshVertices.clear();
-	currentTexture = 0;
+	currentMaterial = Material();
 }
 
-void LoadOBJModel::LoadMaterial(const std::string& matName_){
-	currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	if (currentTexture == 0) {
-		TextureHandler::GetInstance()->CreateTexture(matName_, "./Resources/Textures/" + matName_ + ".JPG");
-		currentTexture = TextureHandler::GetInstance()->GetTexture(matName_);
-	}
+void LoadOBJModel::LoadMaterial(const std::string& matName_)
+{
+	currentMaterial = MaterialHandler::GetInstance()->GetMaterial(matName_);
 }
 
-void LoadOBJModel::LoadMaterialLibrary(const std::string& matFilePath_){
-	std::ifstream in(matFilePath_.c_str(), std::ios::in);
-	if (!in) {
-		Debug::Error("Material file cannot be opened." + matFilePath_, "LoadOBJModel.cpp", __LINE__);
-		return;
-	}
-	std::string line;
-	while (std::getline(in, line)) {
-		if (line.substr(0, 7) == "newmtl ") {
-			LoadMaterial(line.substr(7));
-		}
-	}
-	
+
+void LoadOBJModel::LoadMaterialLibrary(const std::string& matFilePath_)
+{
+	MaterialLoader::LoadMaterial(matFilePath_);
 }
+

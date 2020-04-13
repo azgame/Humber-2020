@@ -1,4 +1,7 @@
 [INFO]: Creating Start Scene in: StartScene.cpp on line: 14
-[INFO]: Game Interface was created succesfully in: CoreEngine.cpp on line: 28
-[INFO]: Engine was created correctly in: CoreEngine.cpp on line: 33
-[INFO]: Creating Game Scene in: GameScene.cpp on line: 15
+[INFO]: Game Interface was created succesfully in: CoreEngine.cpp on line: 31
+[INFO]: Engine was created successfully in: CoreEngine.cpp on line: 36
+[INFO]: Creating Game Scene in: GameScene.cpp on line: 14
+[ERROR]: Surface for texture diceMapFailed to be createdin: TextureHandler.cpp on line: 21
+[ERROR]: Surface for texture Apple_BodyFailed to be createdin: TextureHandler.cpp on line: 21
+[ERROR]: Surface for texture Apple_BranchFailed to be createdin: TextureHandler.cpp on line: 21

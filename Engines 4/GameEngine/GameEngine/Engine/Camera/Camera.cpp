@@ -34,26 +34,56 @@ void Camera::UpdateCameraVector(){
 	forward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	forward.y = sin(glm::radians(pitch));
 	forward.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
 	forward = glm::normalize(forward);
-
-	right = glm::normalize(glm::cross(forward, worldUp));
-
-	up = glm::normalize(glm::cross(right, forward));
+	right = glm::cross(forward, worldUp);
+	right = glm::normalize(right);
+	up = glm::cross(right, forward);
+	up = glm::normalize(up);
 }
 void Camera::OnDestroy()
 {
-	lightsources.clear();
+	lightSources.clear();
 }
 void Camera::AddLightSources(LightSource* lightsource_)
 {
-	lightsources.push_back(lightsource_);
+	lightSources.push_back(lightsource_);
 }
 std::vector<LightSource*> Camera::GetLightSources()
 {
-	return lightsources;
+	return lightSources;
 }
 glm::vec3 Camera::GetPosition()
 {
 	return position;
+}
+
+void Camera::ProcessMouseMovement(glm::vec2 offset_){
+	// can set the 0.05f to a variable.
+	offset_ *= 0.05f;
+
+	yaw += offset_.x;
+	pitch += offset_.y;
+
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+
+	if (yaw < 0.0f) {
+		yaw += 360.0f;
+	}
+	if (yaw > 360.0f) {
+		yaw -= 360.0f;
+	}
+	UpdateCameraVector();
+}
+
+void Camera::ProcessMouseZoom(int y_){
+	if (y_ < 0 || y_ > 0) {
+		// set the 2.0f to a variable later on.
+		position += static_cast<float>(y_) * (forward * 2.0f);
+	}
+	UpdateCameraVector();
 }

@@ -16,6 +16,9 @@ public:
 	float GetAngle() const;
 	glm::vec3 GetRotation() const;
 	glm::vec3 GetScale() const;
+	BoundingBox GetBoundingBox();
+	std::string GetTag() const;
+
 
 
 	//setters
@@ -23,6 +26,8 @@ public:
 	void SetAngle(float angle_);
 	void SetRotation(glm::vec3 rotation_);
 	void SetScale(glm::vec3 scale_);
+	void SetTag(std::string tag_);
+	
 private:
 	Model* model;
 
@@ -30,6 +35,8 @@ private:
 	float angle;
 	glm::vec3 rotation;
 	glm::vec3 scale;
+	BoundingBox box;
+	std::string tag;
 
 	int modelInstance;
 };

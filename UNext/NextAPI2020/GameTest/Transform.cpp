@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Transform.h"
 
-Transform::Transform()
+Transform::Transform(GameObject* owner_) : Component(owner_)
 {
 }
 
